@@ -1,6 +1,0 @@
-1. virtual machine
-2. linux
-3. ssh
-4. LAN
-https://www.virtualbox.org/manual/ch06.html
-https://users.soict.hust.edu.vn/hoangph/textbook/apdxA01-1.html
