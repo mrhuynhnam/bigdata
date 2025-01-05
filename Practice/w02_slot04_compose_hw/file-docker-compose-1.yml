@@ -1,0 +1,40 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+    nodejsapi:
+        image: mrnam-api-image # uses an image from a registry
+        container_name: mrnam-api-con
+        restart: always
+        environment:
+            - PGUSER=admin
+            - PGPASSWORD=admin
+            - PGDATABASE=dbshop
+            - PGHOST=mrnam-pg-con
+            - PGPORT=5432
+        ports:
+            - "5555:80"
+        networks:
+            - mrnam-api-db-net
+
+    dbmspostgres:
+        image: postgres
+        container_name: mrnam-pg-con
+        restart: always
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=dbshop
+        volumes:
+            - mrnam-data-vol:/var/lib/postgresql/data
+            - ./database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+        ports:
+            - "5432:5432"
+        networks:
+            - mrnam-api-db-net
+
+volumes:
+    mrnam-data-vol:
+
+networks:
+    mrnam-api-db-net:
